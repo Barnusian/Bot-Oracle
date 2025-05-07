@@ -1,6 +1,7 @@
 import random
 from PIL import Image
 from escpos.printer import Usb
+from escpos.exceptions import USBNotFoundError
 from addTextToImage import add_text_to_image
 from textRandomiser import select_line
 from modeClass import PrintMode
@@ -10,14 +11,26 @@ vendor_id = 0x04b8  # Epson's Vendor ID
 t88v = 0x0e15       # TM-T88V Product ID
 t88iv = 0x0202      # TM-T88IV Product ID
 
-# Select the printer model being used
-printer = Usb(vendor_id, t88iv, profile="TM-T88IV")
+# Check for connected printer
+def is_printer_connected() :
+    try :
+        printer = Usb(vendor_id, t88iv)
+        return True
+    except USBNotFoundError:
+        return False
+
+if is_printer_connected() :
+    printer = Usb(vendor_id, t88iv, profile="TM-T88IV")
+    PrinterConnected = True
+else :
+    print("no printer connected :(")
+    PrinterConnected = False
 
 # Print Modes
 modes = {
     1: PrintMode("Images/decorative frame.png", select_line("Text/random-text.txt").upper(), "Fonts/Helvetica-Bold.ttf", 72, 7, False),
-    2: PrintMode("Images/dancers.png", select_line("Text/textwrapexample.txt"), "Fonts/FreeMonospaced-7ZXP.ttf", 50, 340, False),
-    3: PrintMode("Images/bride of dracula.png", select_line("Text/random-text.txt"), "Fonts/Helvetica-Bold.ttf", 60, 340, True),
+    2: PrintMode("Images/dancers.png", select_line("Text/random-text.txt"), "Fonts/Helvetica-Bold.ttf", 60, 340, True),
+    3: PrintMode("Images/bride of dracula.png", select_line("Text/dressforaday.txt"), "Fonts/FreeMonospaced-7ZXP.ttf", 50, 340, False),
     4: PrintMode("Images/catndog.png", select_line("Text/bot-oracle.txt"), "Fonts/Helvetica-Bold.ttf", 30, 200, False),
     5: PrintMode("Images/Bartina.png", select_line("Text/barts-words.txt"), "Fonts/Helvetica-Bold.ttf", 35, -158, True),
 }
@@ -40,8 +53,8 @@ dither_flag = selected_mode.dither
 #manual_offset = 7
 
 # print random sentence to be used, to console
-print(sentence)
-print(f"Dither = {dither_flag}")
+# print(sentence)
+# print(f"Dither = {dither_flag}")
 
 # create variable containing the path to a new randomised image
 printableImage = add_text_to_image(bgImage, sentence, font, font_size, manual_offset)
@@ -55,8 +68,8 @@ with Image.open(printableImage) as img:
         img = img.convert("1", dither=Image.FLOYDSTEINBERG) # Use dither
     else :
         img = img.convert("1") # Convert to black & white
-    # img.save("Images/processed_image.bmp")  # Save as BMP for printing
-    printer.image(img, center=True)  # Print a raster image
-
-# Cut the receipt
-printer.cut()
+    img.save("Output/printed_output.bmp")  # Save as BMP
+    if PrinterConnected :
+        printer.image(img, center=True)  # Print a raster image to printer
+        printer.cut()  # Cut the receipt
+        print("Image printed")
