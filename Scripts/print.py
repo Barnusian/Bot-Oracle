@@ -5,6 +5,7 @@ from escpos.exceptions import USBNotFoundError
 from addTextToImage import add_text_to_image
 from textRandomiser import select_line
 from modeClass import PrintMode
+from modeClass import modes
 
 # Define USB Vendor ID and Product IDs for both models
 vendor_id = 0x04b8  # Epson's Vendor ID
@@ -27,22 +28,41 @@ else :
     PrinterConnected = False
 
 # Print Modes
-modes = {
-    1: PrintMode("Images/decorative frame.png", select_line("Text/random-text.txt").upper(), "Fonts/Helvetica-Bold.ttf", 72, 7, False),
-    2: PrintMode("Images/dancers.png", select_line("Text/random-text.txt"), "Fonts/Helvetica-Bold.ttf", 60, 340, True),
-    3: PrintMode("Images/bride of dracula.png", select_line("Text/dressforaday.txt"), "Fonts/FreeMonospaced-7ZXP.ttf", 50, 340, False),
-    4: PrintMode("Images/catndog.png", select_line("Text/bot-oracle.txt"), "Fonts/Helvetica-Bold.ttf", 30, 200, False),
-    5: PrintMode("Images/Bartina.png", select_line("Text/barts-words.txt"), "Fonts/Helvetica-Bold.ttf", 35, -158, True),
-}
+#modes = {
+#    1: PrintMode("Images/decorative frame.png", select_line("Text/random-text.txt").upper(), "Fonts/Helvetica-Bold.ttf", 72, 7, False),
+#    2: PrintMode("Images/dancers.png", select_line("Text/random-text.txt"), "Fonts/Helvetica-Bold.ttf", 60, 340, True),
+#    3: PrintMode("Images/bride of dracula.png", select_line("Text/dressforaday.txt"), "Fonts/FreeMonospaced-7ZXP.ttf", 50, 340, False),
+#    4: PrintMode("Images/catndog.png", select_line("Text/bot-oracle.txt"), "Fonts/Helvetica-Bold.ttf", 30, 200, False),
+#    5: PrintMode("Images/Bartina.png", select_line("Text/barts-words.txt"), "Fonts/Helvetica-Bold.ttf", 35, -158, True),
+#}
 
-selected_mode = modes[random.randint(1,5)]
+#selected_mode = modes[random.randint(1,5)]
 #selected_mode = modes[1]
 
+# Pick random mode from dictionary in modeClass.py
+selected_key = random.choice(list(modes.keys()))
+mode_config = modes[selected_key]
+
+# Get text from randomiser function
+sentence = select_line(mode_config["text_path"])
+
+# Apply transformations placeholder
+#placeholder
+
+# Create PrintMode instance - variables to be renamed for consistency
+selected_mode = PrintMode(
+    image_path=mode_config["image_path"],
+    text_path=sentence,
+    font_path=mode_config["font_path"],
+    font_size=mode_config["font_size"],
+    offset=mode_config["offset"],
+    dither=mode_config["dither"]
+)
 bgImage = selected_mode.load_image()
-sentence = selected_mode.text_path
-font = selected_mode.font_path
-font_size = selected_mode.font_size
-manual_offset = selected_mode.offset
+#sentence = selected_mode.text_path
+#font = selected_mode.font_path
+#font_size = selected_mode.font_size
+#manual_offset = selected_mode.offset
 dither_flag = selected_mode.dither
 
 # input image and text
@@ -57,7 +77,7 @@ dither_flag = selected_mode.dither
 # print(f"Dither = {dither_flag}")
 
 # create variable containing the path to a new randomised image
-printableImage = add_text_to_image(bgImage, sentence, font, font_size, manual_offset)
+printableImage = add_text_to_image(bgImage, selected_mode.text_path, selected_mode.font_path, selected_mode.font_size, selected_mode.offset)
 # print(printableImage) # print outputh path, for debugging
 
 with Image.open(printableImage) as img:

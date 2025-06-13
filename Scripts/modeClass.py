@@ -16,48 +16,56 @@ class PrintMode:
             return Image.open(self.image_path)
         else :
             return Image.open("Images\lemonpig.png")
-    
-mode_1 = {
-    "image" : "Images/decorative frame.png",
-    "text" : "Text/random-text.txt",
-    "font" : "Fonts/Helvetica-Bold.ttf",
-    "font size" : 72,
-    "vertical offset" : 7,
-    "dither" : False
-}
 
-mode_2 = {
-    "image" : "Images/dancers.png",
-    "text" : "Text/random-text.txt",
-    "font" : "Fonts/Helvetica-Bold.ttf",
-    "font size" : 60,
-    "vertical offset" : 340,
-    "dither" : True
-}
+# Dictionary of modes
+modes = {
+    # Helvetica on frame    
+    1 : {
+        "image" : "Images/decorative frame.png",
+        "text" : "Text/random-text.txt",
+        "font" : "Fonts/Helvetica-Bold.ttf",
+        "font size" : 72,
+        "vertical offset" : 7,
+        "dither" : False
+    },
 
-mode_3 = {
-    "image" : "Images/bride of dracula.png",
-    "text" : "Text/dressforaday.txt",
-    "font" : "Fonts/FreeMonospaced-7ZXP.ttf",
-    "font size" : 50,
-    "vertical offset" : 340,
-    "dither" : False
-}
+    # Star wars guy, vertical text
+    2 : {
+        "image" : "Images/dancers.png",
+        "text" : "Text/random-text.txt",
+        "font" : "Fonts/Helvetica-Bold.ttf",
+        "font size" : 60,
+        "vertical offset" : 340,
+        "dither" : True
+    },
 
-mode_4 = {
-    "image" : "Images/catndog.png",
-    "text" : "Text/bot-oracle.txt",
-    "font" : "Fonts/Helvetica-Bold.ttf",
-    "font size" : 30,
-    "vertical offset" : 200,
-    "dither" : False
-}
+    # Manga image, text box
+    3 : {
+        "image" : "Images/bride of dracula.png",
+        "text" : "Text/dressforaday.txt",
+        "font" : "Fonts/FreeMonospaced-7ZXP.ttf",
+        "font size" : 50,
+        "vertical offset" : 340,
+        "dither" : False
+    },
 
-mode_5 = {
-    "image" : "Images/Bartina.png",
-    "text" : "Text/barts-words.txt",
-    "font" : "Fonts/Helvetica-Bold.ttf",
-    "font size" : 35,
-    "vertical offset" : -158,
-    "dither" : True
+    # cat dog image
+    4 : {
+        "image" : "Images/catndog.png",
+        "text" : "Text/bot-oracle.txt",
+        "font" : "Fonts/Helvetica-Bold.ttf",
+        "font size" : 30,
+        "vertical offset" : 200,
+        "dither" : False
+    },
+
+    # Bartina
+    5 : {
+        "image" : "Images/Bartina.png",
+        "text" : "Text/barts-words.txt",
+        "font" : "Fonts/Helvetica-Bold.ttf",
+        "font size" : 35,
+        "vertical offset" : -158,
+        "dither" : True
+    }
 }
