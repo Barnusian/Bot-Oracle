@@ -1,3 +1,5 @@
 __pycache__/
 .env/
 Tests/
+test_env
+test_requirements.txt
