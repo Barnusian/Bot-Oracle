@@ -1,6 +1,10 @@
 __pycache__/
 .env
 .venv/
+.envrc
 Tests/
 test_env
 test_requirements.txt
+Output/output.png
+Output/printed_output.bmp
+luma_anim.gif
