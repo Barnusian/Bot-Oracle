@@ -8,9 +8,9 @@ def get_device():
     dev_mode = os.getenv("DEV_MODE", "0") == "1" or platform.system() != "Linux"
 
     if dev_mode:
-        from luma.emulator.device import gifanim
+        from luma.emulator.device import pygame
         print("🧪 Running in DEV mode with emulator")
-        return gifanim(width=32, height=8, scale=2)
+        return pygame(width=32, height=8)
     else:
         from luma.core.interface.serial import spi, noop
         from luma.led_matrix.device import max7219

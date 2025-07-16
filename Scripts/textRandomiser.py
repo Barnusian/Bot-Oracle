@@ -13,4 +13,3 @@ def select_line(filename):
     else:
         #in case of no such file
         return('No file found!')
-print(select_line("Text/barts-words.txt"))
