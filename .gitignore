@@ -8,3 +8,4 @@ test_requirements.txt
 Output/output.png
 Output/printed_output.bmp
 luma_anim.gif
+logs/
