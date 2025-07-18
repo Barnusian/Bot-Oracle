@@ -1,8 +1,10 @@
 from device_setup import get_device
 from luma.core.render import canvas
 
-device = get_device()
+def clear_display():
+    device = get_device()
+    with canvas(device):
+        pass  # clears display by drawing nothing
 
-# Clear the display by opening a canvas and not drawing anything
-with canvas(device):
-    pass
+if __name__ == "__main__":
+    clear_display()

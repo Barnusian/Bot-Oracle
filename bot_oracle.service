@@ -3,8 +3,6 @@ Description=Bot-Oracle Input Listener
 After=network.target
 
 [Service]
-ExecStartPre=/bin/bash -c 'for i in {1..10}; do [ -e /dev/spidev0.0 ] && break || sleep 1; done'
-ExecStartPre=/usr/bin/python3 /home/pi/ReceiptWriter/Scripts/LEDs/clear_matrix.py
 ExecStart=/usr/bin/python3 /home/pi/ReceiptWriter/bot_oracle.py
 WorkingDirectory=/home/pi/ReceiptWriter
 StandardOutput=append:/home/pi/ReceiptWriter/logs/stdout.log
