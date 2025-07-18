@@ -122,7 +122,6 @@ def run_script(script_path):
 if __name__ == "__main__":
     logging.info("Bot-Oracle starting...")
     threading.Thread(target=serial_listener, daemon=True).start()
-    event_handler()  # blocks forever
 
     try:
         from Scripts.LEDs.clear_matrix import clear_display
@@ -130,3 +129,5 @@ if __name__ == "__main__":
         logging.info("LED matrix cleared successfully")
     except Exception as e:
         logging.warning(f"Failed to clear LED matrix: {e}")
+
+    event_handler()  # blocks forever
