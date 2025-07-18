@@ -84,7 +84,7 @@ with Image.open(printableImage) as img:
     if img.height < img.width :
         img = img.transpose(Image.ROTATE_90) # rotate 90 degrees
     img = img.resize((512, img.height * 512 // img.width))  # Scale to fit width
-    if dither_flag == True:
+    if dither_flag:
         img = img.convert("1", dither=Image.FLOYDSTEINBERG) # Use dither
     else :
         img = img.convert("1") # Convert to black & white
