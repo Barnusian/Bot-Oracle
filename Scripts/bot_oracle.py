@@ -25,7 +25,8 @@ EVENT_MAP = {
 # ------------------------------
 # Setup Logging
 # ------------------------------
-log_path = Path("logs")
+BASE_DIR = Path(__file__).resolve().parent.parent
+log_path = BASE_DIR / "logs"
 log_path.mkdir(exist_ok=True)
 logging.basicConfig(
     filename=log_path / "bot_oracle.log",
