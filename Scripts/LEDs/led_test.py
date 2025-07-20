@@ -1,4 +1,3 @@
-import os
 from time import sleep
 from luma.core.render import canvas
 from PIL import ImageFont
