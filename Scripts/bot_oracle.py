@@ -12,14 +12,14 @@ from pathlib import Path
 SERIAL_PORT = '/dev/ttyUSB0'
 BAUD_RATE = 9600
 EVENT_COOLDOWN = {
-    "BTN_1": 5,
-    "BTN_2": 3,
-    "BTN_3": 10,
+    "BTN_1": 1,
+    "BTN_2": 1,
+    "BTN_3": 1,
 }
 EVENT_MAP = {
     "BTN_1": ["Scripts/print_message.py"],
-    "BTN_2": ["Scripts/show_led_1.py"],
-    "BTN_3": ["Scripts/show_led_2.py", "Scripts/other_output.py"],
+    "BTN_2": ["Scripts/LEDs/ledTest.py"],
+    "BTN_3": [],
 }
 
 # ------------------------------
@@ -53,11 +53,15 @@ def serial_listener():
             with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
                 logging.info(f"Connected to {SERIAL_PORT}")
                 while True:
-                    line = ser.readline().decode('utf-8').strip()
+                    try:
+                        line = ser.readline().decode('utf-8').strip()
+                    except UnicodeDecodeError:
+                        logging.warning("Received undecodable serial data.")
+                        continue
                     if line:
                         logging.info(f"Received: {line}")
                         event_queue.put(line)
-        except serial.SerialException as e:
+        except (serial.SerialException, OSError) as e:
             logging.warning(f"Serial error: {e}. Retrying in 5 seconds...")
             time.sleep(5)
 
