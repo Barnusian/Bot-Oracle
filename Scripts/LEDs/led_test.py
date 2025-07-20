@@ -18,3 +18,6 @@ def display_message():
             with canvas(device) as draw:
                 draw.text((width-ofset, -2), msg, font=font, fill="white")
             sleep(0.08)
+
+if __name__ == "__main__":
+    display_message()

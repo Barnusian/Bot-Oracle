@@ -17,7 +17,7 @@ EVENT_COOLDOWN = {
     "BTN_3": 1,
 }
 EVENT_MAP = {
-    "BTN_1": ["Scripts/spi_led_test.py"],
+    "BTN_1": ["Scripts/LEDs/spi_led_test.py"],
     "BTN_2": ["Scripts/LEDs/led_test.py"],
     "BTN_3": [],
 }
