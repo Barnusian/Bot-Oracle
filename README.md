@@ -28,7 +28,7 @@ sudo apt install python3-pip git -y
 Pull repo with:
 
 ```
-git clone https://github.com/Barnusian/ReceiptWriter.git
+git clone https://github.com/Barnusian/Bot-Oracle
 ```
 
 cd into /ReceiptWriter directory and set up virtual environment:
