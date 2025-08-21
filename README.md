@@ -31,7 +31,7 @@ Pull repo with:
 git clone https://github.com/Barnusian/Bot-Oracle
 ```
 
-cd into /ReceiptWriter directory and set up virtual environment:
+cd into /Bot-Oracle directory and set up virtual environment:
 
 ```
 python -m venv .venv
